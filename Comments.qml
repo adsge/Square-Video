@@ -4,28 +4,45 @@ import ""
 
 Item {
     id: item
-    function add(){
-        textModel.append()
+    property int viewCount: 0
+    property int commentCount: 0
+
+    function addName(){
+        var imageSource={"iSource":arguments[0][0]}
+        var userName={"uName":arguments[0][1]}
+        var textComment={"tComment":arguments[0][2]}
+        listModel.append(imageSource,userName,textComment)
+        commentCount++;
     }
-    ListView{
 
-
+    AppListView{
         model: ListModel{
-            id:textModel
+            id:listModel
         }
-
-
-        delegate:Users{
-            id:user
-            Text{
-                text:" "
+        delegate: delegate
+    }
+    Component{
+        id:delegate
+        Column{
+            Row{
+                AppImage {
+                    id: image
+                    source: iSource
+                }
+                AppText {
+                    id: name
+                    text: uName
+                }
+            }
+            Text {
+                id: comment
+                text: tComment
             }
         }
 
-
-
-
-
-
     }
+
+
+
+
 }

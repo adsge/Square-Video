@@ -5,6 +5,8 @@ Item {
 
     id: item
 
+    property alias image :image
+    property alias row:row
 
     implicitWidth: 400
     implicitHeight: 300
@@ -16,48 +18,48 @@ Item {
 
     }
 
-//    VideoRow{
-//        id:row
-//        z:1
-//        anchors.bottom: parent.bottom
-//        anchors.left: parent.left
-
-//    }
-    Row{
+    VideoRow{
         id:row
         z:1
-        property real spacing: dp(2)
-
         anchors.bottom: parent.bottom
         anchors.left: parent.left
-        //
-        function setText(){
-                text.text=arguments[0];
-        }
 
-        VideoIcon{
-
-            spacing: parent.spacing
-
-            iconItem.icon:IconType.commento
-            textItem.text: comments.viewCount
-        }
-        VideoIcon{
-
-            spacing: parent.spacing
-
-            iconItem.icon:IconType.playcircleo
-            textItem.text: comments.commentCount
-        }
-        VideoIcon{
-            spacing: parent.spacing
-
-            iconItem.icon:' '
-            textItem.text:' '
-
-
-        }
     }
+//    Row{
+//        id:row
+//        z:1
+//        property real spacing: dp(2)
+
+//        anchors.bottom: parent.bottom
+//        anchors.left: parent.left
+//        //
+//        function setText(){
+//                text.text=arguments[0];
+//        }
+
+//        VideoIcon{
+
+//            spacing: parent.spacing
+
+//            iconItem.icon:IconType.commento
+//            textItem.text: comments.viewCount
+//        }
+//        VideoIcon{
+
+//            spacing: parent.spacing
+
+//            iconItem.icon:IconType.playcircleo
+//            textItem.text: comments.commentCount
+//        }
+//        VideoIcon{
+//            spacing: parent.spacing
+
+//            iconItem.icon:' '
+//            textItem.text:' '
+
+
+//        }
+//    }
 
 
 

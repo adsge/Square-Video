@@ -2,8 +2,8 @@ import QtQuick 2.12
 import Felgo 3.0
 
 Row {
-    property var comments:undefined
-    property real spacing: dp(10)
+    property var dataConut:undefined
+    property real spacing: dp(2)
     function setText(){
             text.text=arguments[0];
     }
@@ -13,14 +13,14 @@ Row {
         spacing: parent.spacing
 
         iconItem.icon:IconType.commento
-        textItem.text: comments.viewCount
+        textItem.text: dataConut.viewCount
     }
     VideoIcon{
 //        anchors.centerIn: parent
         spacing: parent.spacing
 
         iconItem.icon:IconType.playcircleo
-        textItem.text: comments.commentCount
+        textItem.text: dataConut.commentCount
     }
     VideoIcon{
         spacing: parent.spacing
