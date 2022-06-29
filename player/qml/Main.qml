@@ -37,18 +37,23 @@ App {
     Users{
         id:user;
     }
+    Text {
+        id: text11
+        text: user.password
+    }
 
     Image {
 
         anchors.fill: parent
         id: imgage1
-        source:user
+        source:user.a[2];
     }
     Button{
-//        text: user.okk
+        text: user.password
         onClicked: {
-//            user.typeTransition()
-//            console.log(user.name)
+
+            console.log(user.uid("tanzhaolin"))
+
         }
     }
 }

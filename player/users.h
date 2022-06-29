@@ -14,102 +14,67 @@ class Users : public QObject
 {
     Q_OBJECT
     QML_ELEMENT
-    Q_PROPERTY(int m_age READ age WRITE setAge NOTIFY m_ageChange)
-    Q_PROPERTY(int m_Bconin READ Bconin WRITE setBconin NOTIFY m_BconinChange)
-    Q_PROPERTY(int m_conin READ conin WRITE setConin NOTIFY m_coninChange)
-    Q_PROPERTY(int m_account READ account WRITE setAccount NOTIFY m_accountChange)
 
-    Q_PROPERTY(QString okk READ getOkk WRITE setOkk NOTIFY okkChanged)
-
-    Q_PROPERTY(QString name READ getName WRITE setName NOTIFY nameChanged)
-    Q_PROPERTY(QString sex READ getSex WRITE setSex NOTIFY sexChanged)
-    Q_PROPERTY(QString password READ getPassword WRITE setPassword NOTIFY passwordChanged)
-    Q_PROPERTY(QString photo READ getPhoto WRITE setPhoto NOTIFY photoChanged)
+    Q_PROPERTY(QList<QString> a READ getA WRITE setA NOTIFY aChanged)
+//用户表的 id  姓名  头像  年龄
+    Q_PROPERTY(QList<int> id READ getId WRITE setId NOTIFY idChanged)
+    Q_PROPERTY(QList<QString> name READ getName WRITE setName NOTIFY nameChanged)
+    Q_PROPERTY(QList<QString> touxiang READ getTouxiang WRITE setTouxiang NOTIFY touxiangChanged)
+    Q_PROPERTY(QList<int> age READ getAge WRITE setAge NOTIFY ageChanged)
 
 public:
     explicit Users(QObject *parent = nullptr);
-    Q_INVOKABLE void readUserInfo();
-    friend std::istream &operator>>(std::istream &is,Users &a);
-    QString setUrl()
-    {
 
-    }
 
-    Q_INVOKABLE void typeTransition();
-    void openShoucangjia();
 
+    void loaduinfo();
+    Q_INVOKABLE int uid(QString a);
+    Q_INVOKABLE QString uname(QString a);
+    Q_INVOKABLE QString utouxiang(QString a);
+    Q_INVOKABLE int uage(QString a);
 
 
 
 
+    const QList<QString> &getA() const;
+    void setA(const QList<QString> &newA);
+
+//用户表的 id  姓名  头像  年龄
+        const QList<int> &getId() const;
+        void setId(const QList<int> &newId);
+        const QList<QString> &getName() const;
+        void setName(const QList<QString> &newName);
+
+        const QList<QString> &getTouxiang() const;
+        void setTouxiang(const QList<QString> &newTouxiang);
+
+        const QList<int> &getAge() const;
+        void setAge(const QList<int> &newAge);
 
 
-    int age() const;
-    void setAge(int age);
-
-    int Bconin() const;
-    void setBconin(int Bconin);
-
-    int conin() const;
-    void setConin(int conin);
-
-    int account() const;
-    void setAccount(int account);
 
 
-    const QString &getOkk() const;
-    void setOkk(const QString &newOkk);
 
-    QString getOk() const;
-    void setOk(const QString &value);
-
-    const QString &getName() const;
-    void setName(const QString &newName);
-    const QString &getSex() const;
-    void setSex(const QString &newSex);
-
-    const QString &getPassword() const;
-    void setPassword(const QString &newPassword);
-
-    const QString &getPhoto() const;
-    void setPhoto(const QString &newPhoto);
 signals:
+    void aChanged();
+//用户表的 id  姓名  头像  年龄
+    void idChanged();
     void nameChanged();
-    void sexChanged();
-    void passwordChanged();
-    void photoChanged();
+    void touxiangChanged();
+    void ageChanged();
 
-    void m_ageChange();
-    void m_BconinChange();
-    void m_coninChange();
-    void m_accountChange();
-
-    void okkChanged();
 public:
-    //姓名,性别,年龄
-    std::string m_name="/root/c++/qt-midterm2-paper/images/02.jpg";
-    std::string m_sex="man";
-    int m_age=100;
 
-    //B币和硬币
-    int m_Bconin;
-    int m_conin;
-    QString okk=QString::fromStdString(m_name);
-    //账户信息
-    int m_account;
-    std::string  m_password;
-    std::string m_photo;
-    std::vector<QString*>shoucangjia;
-    std::vector<Users*>m_users;
+//用户表的 id  姓名  头像  年龄
+    QList<int>id;
+    QList<QString>name;
+    QList<QString>touxiang;
+    QList<int>age;
+
+    QList<QString>a;
+    std::vector<QString>shoucangjia;
     QSqlDatabase db;
 
-
-    //
-    QString name=QString::fromStdString(m_name);
-    QString sex=QString::fromStdString(m_sex);
-
-    QString password=QString::fromStdString(m_password);
-    QString photo=QString::fromStdString(m_photo);
 
 
 };

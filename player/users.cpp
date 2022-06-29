@@ -6,8 +6,8 @@ Users::Users(QObject *parent) : QObject(parent)
 
     db=QSqlDatabase::addDatabase("QSQLITE");
 
-     db.setDatabaseName("/root/tzl.db");
-     db.setUserName("user1");
+     db.setDatabaseName("/root/imp.db");
+     db.setUserName("user2");
      db.setPassword("123456");
      bool ok=db.open();
      if(ok)
@@ -18,42 +18,94 @@ Users::Users(QObject *parent) : QObject(parent)
          std::cout<<"false";
      }
 
-     QSqlQuery query("tzl.db");
-    query.exec("insert into uto(url) values('/root/c++/qt-midterm2-paper/images/20.jpg')");
+     QSqlQuery query("imp.db");
+     query.exec("select * from utoo");
+     while(query.next())
+     {
+         int i=0;
+         QString aa=query.value(0).toString();
+         a.append(aa);
+         i++;
+        std::cout<<i;
+     }
 }
 
-void Users::readUserInfo()
+
+
+
+void Users::loaduinfo()
 {
-    std::ifstream ifs;
-    std::vector<Users>info;
-    ifs.open("/root/cc/infomation.txt",std::ios::in);
-    if(ifs.is_open())
+    QSqlQuery query("imp.db");
+    query.exec("select * from users");
+    while(query.next())
     {
-        Users a;
+        int a=query.value(0).toInt();
+        QString b=query.value(1).toString();
+        QString c=query.value(2).toString();
+        int d=query.value(3).toInt();
+
+        qDebug()<<a<<b<<c<<d;
+        id.append(a);
+        name.append(b);
+        touxiang.append(c);
+        age.append(d);
     }
 }
 
-void Users::typeTransition()
+
+int Users::uid(QString a)
 {
-    this->m_name="/root/c++/qt-midterm2-paper/images/04.jpg";
-}
+    loaduinfo();
 
-
-
-std::istream &operator>>(std::istream &is, Users &a)
-{
-    is>>a.m_name>>a.m_sex>>a.m_age>>a.m_Bconin>>a.m_conin>>a.m_account>>a.m_password;
-    return is;
-}
-
-std::istream &operator>>(std::istream &is,std::vector<std::string> a)
-{
-    std::string b;
-    while(is>>b)
+    int i=0;
+    for(;i<name.length();i++)
     {
-        a.push_back(b);
+        if(name[i]==a)
+        {
+            return id[i];
+        }
     }
-    return is;
+    if(i==id.length()+1)
+    {
+        std::cout<<"未找到该用户。";
+    }
+
+}
+
+QString Users::utouxiang(QString a)
+{
+    loaduinfo();
+
+    int i=0;
+    for(;i<name.length();i++)
+    {
+        if(name[i]==a)
+        {
+            return touxiang[i];
+        }
+    }
+    if(i==id.length()+1)
+    {
+        std::cout<<"未找到该用户。";
+    }
+}
+
+int Users::uage(QString a)
+{
+    loaduinfo();
+
+    int i=0;
+    for(;i<name.length();i++)
+    {
+        if(name[i]==a)
+        {
+            return age[i];
+        }
+    }
+    if(i==id.length()+1)
+    {
+        std::cout<<"未找到该用户。";
+    }
 }
 
 
@@ -61,93 +113,55 @@ std::istream &operator>>(std::istream &is,std::vector<std::string> a)
 
 
 
-int Users::age() const
+
+
+
+
+const QList<QString> &Users::getA() const
 {
-    return m_age;
+    return a;
 }
 
-void Users::setAge(int age)
+void Users::setA(const QList<QString> &newA)
 {
-    m_age = age;
-}
-
-int Users::Bconin() const
-{
-    return m_Bconin;
-}
-
-void Users::setBconin(int Bconin)
-{
-    m_Bconin = Bconin;
-}
-
-int Users::conin() const
-{
-    return m_conin;
-}
-
-void Users::setConin(int conin)
-{
-    m_conin = conin;
-}
-
-int Users::account() const
-{
-    return m_account;
-}
-
-void Users::setAccount(int account)
-{
-    m_account = account;
-}
-
-
-
-const QString &Users::getOkk() const
-{
-    return okk;
-}
-
-void Users::setOkk(const QString &newOkk)
-{
-    if (okk == newOkk)
+    if (a == newA)
         return;
-    okk = newOkk;
-    emit okkChanged();
+    a = newA;
+    emit aChanged();
 }
 
-const QString &Users::getPassword() const
+const QList<int> &Users::getAge() const
 {
-    return password;
+    return age;
 }
 
-void Users::setPassword(const QString &newPassword)
+void Users::setAge(const QList<int> &newAge)
 {
-    if (password == newPassword)
+    if (age == newAge)
         return;
-    password = newPassword;
-    emit passwordChanged();
+    age = newAge;
+    emit ageChanged();
 }
 
-const QString &Users::getSex() const
+const QList<QString> &Users::getTouxiang() const
 {
-    return sex;
+    return touxiang;
 }
 
-void Users::setSex(const QString &newSex)
+void Users::setTouxiang(const QList<QString> &newTouxiang)
 {
-    if (sex == newSex)
+    if (touxiang == newTouxiang)
         return;
-    sex = newSex;
-    emit sexChanged();
+    touxiang = newTouxiang;
+    emit touxiangChanged();
 }
 
-const QString &Users::getName() const
+const QList<QString> &Users::getName() const
 {
     return name;
 }
 
-void Users::setName(const QString &newName)
+void Users::setName(const QList<QString> &newName)
 {
     if (name == newName)
         return;
@@ -155,16 +169,21 @@ void Users::setName(const QString &newName)
     emit nameChanged();
 }
 
-const QString &Users::getPhoto() const
+const QList<int> &Users::getId() const
 {
-    return photo;
+    return id;
 }
 
-void Users::setPhoto(const QString &newPhoto)
+void Users::setId(const QList<int> &newId)
 {
-    if (photo == newPhoto)
+    if (id == newId)
         return;
-    photo = newPhoto;
-    emit photoChanged();
+    id = newId;
+    emit idChanged();
 }
+
+
+
+
+
 

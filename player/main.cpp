@@ -57,6 +57,7 @@ int main(int argc, char *argv[])
     //FelgoLiveClient client (&engine);
 
     Users a;
+
     QStringList drivers=QSqlDatabase::drivers();
     foreach(QString driver,drivers)
         qDebug()<<driver;
@@ -76,7 +77,14 @@ int main(int argc, char *argv[])
      }
      QSqlQuery query("imp.db");
      query.exec("insert into stu(ID) values(9)");
+     query.exec("select * from utoo");
+     while(query.next())
+     {
+        QString aa=query.value(0).toString();
+        qDebug()<<aa;
+     }
 
-
+    a.loaduinfo();
+    a.uid("tanzhaolin");
     return app.exec();
 }
