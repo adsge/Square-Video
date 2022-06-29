@@ -1,17 +1,13 @@
 import QtQuick 2.13
 import Felgo 3.0
-import ""
 
 Item {
     id: item
-    property int viewCount: 0
     property int commentCount: 0
 
     function addName(){
-        var imageSource={"iSource":arguments[0][0]}
-        var userName={"uName":arguments[0][1]}
-        var textComment={"tComment":arguments[0][2]}
-        listModel.append(imageSource,userName,textComment)
+
+        listModel.append(arguments[0])
         commentCount++;
     }
 
@@ -21,23 +17,22 @@ Item {
         }
         delegate: delegate
     }
-
     Component{
         id:delegate
         Column{
             Row{
-                AppImage {
-                    id: image
+                AppImage{
+                    width: parent*0.8
+                    height: parent*0.6
+                    id:image
                     source: iSource
                 }
-                AppText {
-                    id: name
-                    text: uName
+                AppText{
+                    id:uName
                 }
             }
             Text {
-                id: comment
-                text: tComment
+                text: comment
             }
         }
 

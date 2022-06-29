@@ -6,8 +6,6 @@ import QtMultimedia 5.9
 Item {
     id: name
 
-//    property alias detail: detail
-//    property alias title: title
     property int durat: 0
     property int  viewConut: 0
     property  alias videoCover:videoCover
@@ -20,7 +18,7 @@ Item {
     function videoPlay(){
         mediaPlayer.play();
         viewConut++;
-        videoCover.dataCount=viewConut
+        videoCover.viewCount=viewConut
 
     }
     function videoPause(){
@@ -37,11 +35,17 @@ Item {
     }
 
 
+    Comments{
+        id:comment
+    }
     //封面
+
     VideoCover{
         id:videoCover
         visible: true              //
-
+        duration: durat
+        viewCount: viewConut
+        commentCount: comment.commentCount
         TapHandler{
             onTapped: {
                 videoCover.visible=false
@@ -64,7 +68,7 @@ Item {
     }
     MediaPlayer{
         id:mediaPlayer
-        source: "/root/Square Vedio/Page/qml/Video/1.mkv"
+        source: "../Video/1.mkv"
         muted: control.muted
         volume: control.volume
     }
