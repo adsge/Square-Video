@@ -1,7 +1,9 @@
 import QtQuick 2.15
 import Felgo 3.0
 import QtQuick.Controls 2.0 as QC2
-//import "../video"
+import QtQuick.Layouts 1.3
+import "../video"
+
 
 FlickablePage{
     id:showPage
@@ -13,10 +15,10 @@ FlickablePage{
         id:top
         width:parent.width
         height:70
-        color:"yellow"
+        color:"pink"
         anchors.top:title.bottom
         anchors.bottom: firstTabBar.top
-    //用户登陆
+      //用户登陆
         Rectangle{
           id:register
           width:parent.width/13
@@ -41,8 +43,15 @@ FlickablePage{
             width: 2/3*top.width
             height:top.height
             anchors.left:register.right
+
+            AppFlickable{
+                id:flick
+                anchors.top:search.bottom
+
+            }
             anchors.leftMargin: 80
             anchors.rightMargin: 10
+            anchors.bottom: flick.top
 //            radius:15
             border.width: 2
             border.color: "lightgray"
@@ -65,7 +74,7 @@ FlickablePage{
 //                }
             }
         }
-
+        //Button
         Rectangle{
             id:ok
             Text{
@@ -74,15 +83,104 @@ FlickablePage{
 
             width:parent.width/15
             height:top.height
-            radius:20
-            color:"red"
+//            radius:20
+            color:"white"
             anchors.left:search.right
 
             TapHandler{
                 onTapped: console.log("Seacher successfully!")
             }
         }
+
+
+    AppTabBar{
+        id:firstTabBar
+        contentContainer:leftcontent
+        anchors.top:top.bottom
+
+        AppTabButton{
+            text:"推荐"
+        }
+        AppTabButton{
+            text:"热门"
+            TapHandler{
+                onTapped:watchPage.open()
+            }
+        }
     }
+
+    Column{
+        id:leftcontent
+        Repeater{
+            model:["red","green","yellow","blue"]
+
+            Rectangle{
+                color:modelDate
+                width:parent.width
+                height:dp(20)
+            }
+        }
+    }
+
+//    QC2.SwipeView{
+//        id:swipeView
+//        anchors.top:firstTabBar.bottom
+//        anchors.bottom: parent.bottom
+//        width:parent.width
+//        clip:true
+
+
+//        Rectangle{
+//            Videos{
+//                id:video
+//                anchors.fill: parent
+
+//                TapHandler{
+//                    onTapped: {
+//                        video.videoPlay();
+//                       // timer.start();
+//                        console.log(video.mediaPlayer.duration)
+//                    }
+//                }
+//            }
+//        }
+
+
+        Rectangle{
+            color:"Green"
+//            TapHandler{
+//                onTapped: Watch{}
+//            }
+        }
+
+//        Rectangle{
+//            id:father
+//            anchors.top:firstTabBar.bottom
+//            Column{
+//                Rectangle{
+//                    id:bigRectangle
+//                    color:"red"
+//                    height:father.height/3
+//                    width:father.width
+
+//                    anchors.bottom: smallRectangle.top
+//                }
+//                Rectangle{
+//                    id:smallRectangle
+//                    color:"green"
+//                    anchors.top:bigRectangle.bottom
+//                    anchors.bottom:parent.bottom
+//                }
+//            }
+//        }
+
+
+
+
+    }
+
+}
+
 
 //    Dialog{
 //        id:login
@@ -123,88 +221,4 @@ FlickablePage{
 //        positiveActionLabel: "登陆"
 //        negativeActionLabel: "取消"
 //        onAccepted: Show{}
-
-
-
-
-    AppTabBar{
-        id:firstTabBar
-        contentContainer:swipeView
-        anchors.top:top.bottom
-
-        AppTabButton{
-            text:"推荐"
-        }
-        AppTabButton{
-            text:"热门"
-        }
-    }
-
-
-    QC2.SwipeView{
-        id:swipeView
-        anchors.top:firstTabBar.bottom
-        anchors.bottom: parent.bottom
-        width:parent.width
-        clip:true
-
-        Page{
-            Text{
-                anchors.centerIn: parent
-                text:"First"
-            }
-         }
-        Page{
-            Text{
-                text:"second"
-            }
-        }
-//        Rectangle{
-//            Videos{
-//                id:video
-//                anchors.fill: parent
-
-//                TapHandler{
-//                    onTapped: {
-//                        video.videoPlay();
-//                       // timer.start();
-//                        console.log(video.mediaPlayer.duration)
-//                    }
-//                }
-//            }
-//        }
-
-//        Rectangle{
-//            color:"Green"
-//        }
-
-//        Rectangle{
-//            id:father
-//            anchors.top:firstTabBar.bottom
-//            Column{
-//                Rectangle{
-//                    id:bigRectangle
-//                    color:"red"
-//                    height:father.height/3
-//                    width:father.width
-
-//                    anchors.bottom: smallRectangle.top
-//                }
-//                Rectangle{
-//                    id:smallRectangle
-//                    color:"green"
-//                    anchors.top:bigRectangle.bottom
-//                    anchors.bottom:parent.bottom
-//                }
-//            }
-//        }
-
-
-
-
-    }
-
-}
-
-
 
