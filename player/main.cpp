@@ -2,6 +2,13 @@
 #include <FelgoApplication>
 
 #include <QQmlApplicationEngine>
+#include<QQmlContext>
+#include"myobject.h"
+#include"users.h"
+
+#include<QSqlDatabase>
+#include<iostream>
+#include<QSqlQuery>
 
 // uncomment this line to add the Live Client Module and use live reloading with your custom C++ code
 //#include <FelgoLiveClient>
@@ -18,6 +25,16 @@ int main(int argc, char *argv[])
 
     QQmlApplicationEngine engine;
     felgo.initialize(&engine);
+    QQmlContext *context=engine.rootContext();
+    qmlRegisterType<MyObject>("My",1,0,"MyObject");
+    qmlRegisterType<Users>("Users",1,0,"Users");
+    //context->setContextProperty("Text1","wwwww");
+    const QUrl url(QStringLiteral("qml/Main.qml"));
+
+
+    MyObject kkk;
+
+    kkk.saveFile("/root/cc/save.txt");
 
     // Set an optional license key from project file
     // This does not work if using Felgo Live, only for Felgo Cloud Builds and local builds
@@ -38,6 +55,28 @@ int main(int argc, char *argv[])
     // to start your project as Live Client, comment (remove) the lines "felgo.setMainQmlFileName ..." & "engine.load ...",
     // and uncomment the line below
     //FelgoLiveClient client (&engine);
+
+    Users a;
+    QStringList drivers=QSqlDatabase::drivers();
+    foreach(QString driver,drivers)
+        qDebug()<<driver;
+
+    QSqlDatabase db=QSqlDatabase::addDatabase("QSQLITE");
+
+     db.setDatabaseName("/root/imp.db");
+     db.setUserName("user1");
+     db.setPassword("123456");
+     bool ok=db.open();
+     if(ok)
+     {
+         std::cout<<"true";
+     }
+     else{
+         std::cout<<"false";
+     }
+     QSqlQuery query("imp.db");
+     query.exec("insert into stu(ID) values(9)");
+
 
     return app.exec();
 }
