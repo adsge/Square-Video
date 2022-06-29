@@ -1,6 +1,5 @@
-import QtQuick 2.0
+import QtQuick 2.13
 import Felgo 3.0
-import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.15
 import QtMultimedia 5.9
 
@@ -21,13 +20,18 @@ Item {
 
         }
     }
+    Audio{
+        id:audio
+        source: mediaPlayer
+    }
     AppSlider{
         id:slider
         anchors.bottom: parent.bottom
         width: parent.width*0.8
         value: mediaPlayer.position/mediaPlayer.duration
-        onMoved:mediaPlayer.setPostion(value*mediaPlayer.duration)
-
+        onMoved:{
+            mediaPlayer.seek(value*mediaPlayer.duration);
+            audio.seek(value*mediaPlayer.duration)}
        }
 
 

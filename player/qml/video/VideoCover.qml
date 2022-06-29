@@ -1,10 +1,10 @@
-import QtQuick 2.0
+import QtQuick 2.13
 import Felgo 3.0
 
 Item {
 
     id: item
-    property var dataConut:undefined
+    property var dataCount:0
     property alias image :image
     property alias row:row
 
@@ -42,14 +42,14 @@ Item {
             spacing: parent.spacing
 
             iconItem.icon:IconType.commento
-            textItem.text: comments.viewCount
+            //textItem.text: dataCount.viewCount
         }
         VideoIcon{
 
             spacing: parent.spacing
 
             iconItem.icon:IconType.playcircleo
-            textItem.text: comments.commentCount
+            //textItem.text: dataCount.commentCount
         }
         VideoIcon{
             spacing: parent.spacing

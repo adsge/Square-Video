@@ -1,7 +1,7 @@
 import QtQuick 2.15
 import Felgo 3.0
 import QtQuick.Controls 2.0 as QC2
-import "../video"
+//import "../video"
 
 FlickablePage{
     id:showPage
@@ -68,6 +68,10 @@ FlickablePage{
 
         Rectangle{
             id:ok
+            Text{
+                text:"Search"
+            }
+
             width:parent.width/15
             height:top.height
             radius:20
@@ -78,8 +82,6 @@ FlickablePage{
                 onTapped: console.log("Seacher successfully!")
             }
         }
-
-
     }
 
 //    Dialog{
@@ -146,60 +148,59 @@ FlickablePage{
         width:parent.width
         clip:true
 
-
-        Rectangle{
-            id:father
-            anchors.top:firstTabBar.bottom
-            Column{
-                Rectangle{
-                    id:bigRectangle
-                    color:"red"
-                    height:father.height/3
-                    width:father.width
-                    anchors.top:father.top
-
-                    anchors.bottom: smallRectangle.top
-                }
-                Rectangle{
-                    id:smallRectangle
-                    color:"green"
-                    anchors.top:bigRectangle.bottom
-                    anchors.bottom:parent.bottom
-                }
+        Page{
+            Text{
+                anchors.centerIn: parent
+                text:"First"
+            }
+         }
+        Page{
+            Text{
+                text:"second"
             }
         }
+//        Rectangle{
+//            Videos{
+//                id:video
+//                anchors.fill: parent
 
-
-//            color:"red"
-//            height:50
-//            height:parent.height/3
-//            anchors.top:firstTabBar.bottom
-//            anchors.bottom: smallRectangle.top
-
-
-//            Rectangle{
-//                id:smallRectangle
-
-//                height:100
-////                  height:bigRectangle.height/3
-//                  width:bigRectangle.width
-//                  color:"Green"
-//                Image{
-//                    id:postImage
-//                    anchors.fill:bigRectangle
-//                }
 //                TapHandler{
-//                    onTapped:console.log(postImage)
+//                    onTapped: {
+//                        video.videoPlay();
+//                       // timer.start();
+//                        console.log(video.mediaPlayer.duration)
+//                    }
 //                }
+//            }
+//        }
+
+//        Rectangle{
+//            color:"Green"
+//        }
+
+//        Rectangle{
+//            id:father
+//            anchors.top:firstTabBar.bottom
+//            Column{
+//                Rectangle{
+//                    id:bigRectangle
+//                    color:"red"
+//                    height:father.height/3
+//                    width:father.width
+
+//                    anchors.bottom: smallRectangle.top
+//                }
+//                Rectangle{
+//                    id:smallRectangle
+//                    color:"green"
+//                    anchors.top:bigRectangle.bottom
+//                    anchors.bottom:parent.bottom
+//                }
+//            }
+//        }
 
 
 
-
-
-
-        Rectangle{
-            color:"Green"
-        }
 
     }
 

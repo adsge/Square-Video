@@ -1,6 +1,6 @@
-import QtQuick 2.0
+import QtQuick 2.13
 import Felgo 3.0
-
+import QtMultimedia 5.9
 Item {
 
     id: item
@@ -11,7 +11,7 @@ Item {
     AppButton{
         anchors.verticalCenter: volumeSlider.verticalCenter
         anchors.left: volumeSlider.right
-        icon:muted? IconType.volumeup :IconType.volumeoff
+        icon:muted? IconType.volumeoff :IconType.volumeup
         onClicked: muted=!muted
     }
     AppSlider {

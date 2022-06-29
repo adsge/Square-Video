@@ -1,4 +1,4 @@
-import QtQuick 2.12
+import QtQuick 2.13
 import Felgo 3.0
 
 Row {
