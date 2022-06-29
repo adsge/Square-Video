@@ -1,0 +1,8 @@
+{
+    "title": "First",
+    "identifier": "com.yourcompany.wizardEVAP.First",
+    "orientation": "auto",
+    "versioncode": 1,
+    "versionname": "1.0.0",
+    "stage": "test"
+}
