@@ -86,5 +86,8 @@ int main(int argc, char *argv[])
 
     a.loaduinfo();
     a.uid("tanzhaolin");
+    a.loadushoucangjia();
+    a.showMyurl("tanzhaolin");
+
     return app.exec();
 }

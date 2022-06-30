@@ -52,6 +52,45 @@ void Users::loaduinfo()
     }
 }
 
+void Users::loadushoucangjia()
+{
+    QSqlQuery query("imp.db");
+    int i=0;
+    query.exec("select * from shoucangjia");
+    while(query.next())
+    {
+        QString a=query.value(0).toString();
+        QString b=query.value(1).toString();
+
+
+        usname.append(a);
+        url.append(b);
+
+
+    }
+}
+
+void Users::showMyurl(QString name)
+{
+    loadushoucangjia();
+
+    QString a;
+
+    int i=0;
+    for(;i<usname.length();i++)
+    {
+        if(usname[i]==name)
+        {
+            a=url[i];
+            myurl.append(a);
+        }
+        else{
+
+            std::cout<<"未找到该用户。";
+        }
+    }
+}
+
 
 int Users::uid(QString a)
 {
@@ -182,8 +221,44 @@ void Users::setId(const QList<int> &newId)
     emit idChanged();
 }
 
+const QList<QString> &Users::getUrl() const
+{
+    return url;
+}
+
+void Users::setUrl(const QList<QString> &newUrl)
+{
+    if (url == newUrl)
+        return;
+    url = newUrl;
+    emit urlChanged();
+}
+
+const QList<QString> &Users::getUsname() const
+{
+    return usname;
+}
+
+void Users::setUsname(const QList<QString> &newUsname)
+{
+    if (usname == newUsname)
+        return;
+    usname = newUsname;
+    emit usnameChanged();
+}
 
 
+const QList<QString> &Users::getMyurl() const
+{
+    return myurl;
+}
 
+void Users::setMyurl(const QList<QString> &newMyurl)
+{
+    if (myurl == newMyurl)
+        return;
+    myurl = newMyurl;
+    emit myurlChanged();
+}
 
 
