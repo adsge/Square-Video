@@ -185,6 +185,9 @@ Rectangle {
                                         anchors.rightMargin: 10
                                         font.pixelSize: 16
                                         clip: true
+                                        elide: Text.ElideRight
+                                        maximumLineCount:1
+                                        wrapMode: Text.WordWrap
                                         text: qsTr(video_text)
                                     }
 

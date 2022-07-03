@@ -162,10 +162,118 @@ FlickablePage{
             }
 
             Rectangle {
-                color: "Green"
+                HotVideoPage {
+                    anchors.fill: parent
+                }
             }
-
         }
     }
 
+//    Column{
+//        id:leftcontent
+//        Repeater{
+//            model:["red","green","yellow","blue"]
+
+//            Rectangle{
+//                color:modelDate
+//                width:parent.width
+//                height:dp(20)
+//            }
+//        }
+//    }
+
+//    QC2.SwipeView{
+//        id:swipeView
+//        anchors.top:firstTabBar.bottom
+//        anchors.bottom: parent.bottom
+//        width:parent.width
+//        clip:true
+
+
+//        Rectangle{
+//            Videos{
+//                id:video
+//                anchors.fill: parent
+
+//                TapHandler{
+//                    onTapped: {
+//                        video.videoPlay();
+//                       // timer.start();
+//                        console.log(video.mediaPlayer.duration)
+//                    }
+//                }
+//            }
+//        }
+
+
+//        Rectangle{
+//            color:"Green"
+////            TapHandler{
+////                onTapped: Watch{}
+////            }
+//        }
+
+//        Rectangle{
+//            id:father
+//            anchors.top:firstTabBar.bottom
+//            Column{
+//                Rectangle{
+//                    id:bigRectangle
+//                    color:"red"
+//                    height:father.height/3
+//                    width:father.width
+
+//                    anchors.bottom: smallRectangle.top
+//                }
+//                Rectangle{
+//                    id:smallRectangle
+//                    color:"green"
+//                    anchors.top:bigRectangle.bottom
+//                    anchors.bottom:parent.bottom
+//                }
+//            }
+//        }
+
+}
+
+
+//    Dialog{
+//        id:login
+//        title:"请登陆您的账号"
+//        anchors.centerIn: parent
+//        visible: true
+
+
+
+
+//        Row{
+//            anchors.horizontalCenter: parent.horizontalCenter
+//            spacing: 1 / 30 * parent.height
+//            Column{
+//                anchors.top: parent.top
+//                anchors.topMargin: 5
+
+//                Text {
+//                    text: "账号："
+//                    font.pixelSize: 20
+//                }
+
+//                Text {
+//                    text: "密码："
+//                    font.pixelSize: 20
+//                }
+//            }
+//            Column{
+//                AppTextField {
+//                    id:nameInput
+//                }
+//               AppTextField {
+//                    id:passwordInput
+//                    echoMode: TextInput.Password
+//                }
+//        }
+//}
+//        positiveActionLabel: "登陆"
+//        negativeActionLabel: "取消"
+//        onAccepted: Show{}
 
