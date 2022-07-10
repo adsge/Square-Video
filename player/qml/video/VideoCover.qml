@@ -4,9 +4,7 @@ import Felgo 3.0
 Item {
 
     id: item
-    property int viewCount:0
-    property int commentCount:0
-    property int duration:0
+    property var dataCount:0
     property alias image :image
     property alias row:row
 
@@ -16,9 +14,17 @@ Item {
     AppImage {
         id: image
         anchors.fill: parent
-        source: "/run/media/root/study/截图/1.jpg"
+        source: "../image/头像.png"
 
     }
+
+//    VideoRow{
+//        id:row
+//        z:1
+//        anchors.bottom: parent.bottom
+//        anchors.left: parent.left
+
+//    }
     Row{
         id:row
         z:1
@@ -36,20 +42,20 @@ Item {
             spacing: parent.spacing
 
             iconItem.icon:IconType.commento
-            textItem.text:viewCount
+            //textItem.text: dataCount.viewCount
         }
         VideoIcon{
 
             spacing: parent.spacing
 
             iconItem.icon:IconType.playcircleo
-            textItem.text: commentCount
+            //textItem.text: dataCount.commentCount
         }
         VideoIcon{
             spacing: parent.spacing
 
             iconItem.icon:' '
-            textItem.text:duration
+            textItem.text:' '
 
 
         }

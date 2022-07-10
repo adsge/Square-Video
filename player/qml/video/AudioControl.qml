@@ -16,8 +16,8 @@ Item {
     }
     AppSlider {
         id: volumeSlider
-        //anchors.bottom: parent.bottom
-        anchors.right: parent.right
+//        anchors.bottom: parent.bottom
+//        anchors.right: parent.right
         to: 100.0
         value: 100.0
     }

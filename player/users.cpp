@@ -6,7 +6,7 @@ Users::Users(QObject *parent) : QObject(parent)
 
     db=QSqlDatabase::addDatabase("QSQLITE");
 
-     db.setDatabaseName("/root/imp.db");
+     db.setDatabaseName("/root/felgo/player/imp.db");
      db.setUserName("user2");
      db.setPassword("123456");
      bool ok=db.open();
@@ -18,16 +18,16 @@ Users::Users(QObject *parent) : QObject(parent)
          std::cout<<"false";
      }
 
-     QSqlQuery query("imp.db");
-     query.exec("select * from utoo");
-     while(query.next())
-     {
-         int i=0;
-         QString aa=query.value(0).toString();
-         a.append(aa);
-         i++;
-        std::cout<<i;
-     }
+//     QSqlQuery query("imp.db");
+//     query.exec("select * from users");
+//     while(query.next())
+//     {
+//         int i=0;
+//         QString aa=query.value(0).toString();
+//         a.append(aa);
+//         i++;
+//        std::cout<<i;
+//     }
 }
 
 
@@ -55,7 +55,8 @@ void Users::loaduinfo()
 void Users::loadushoucangjia()
 {
     QSqlQuery query("imp.db");
-    int i=0;
+
+
     query.exec("select * from shoucangjia");
     while(query.next())
     {
@@ -88,6 +89,29 @@ void Users::showMyurl(QString name)
 
             std::cout<<"未找到该用户。";
         }
+    }
+}
+
+void Users::loadvideo()
+{
+    QSqlQuery query("imp.db");
+    query.exec("select * from video");
+    while(query.next())
+    {
+        int a=query.value(0).toInt();
+        int b=query.value(1).toInt();
+        QString c=query.value(2).toString();
+        QString d=query.value(3).toString();
+        QString e=query.value(4).toString();
+        QString f=query.value(5).toString();
+
+        qDebug()<<a<<b<<c<<d<<e;
+        viewCount.append(a);
+        CommentCount.append(b);
+        imgSrc.append(c);
+        videoSrc.append(d);
+        videoDur.append(e);
+//        video_text.append(f);
     }
 }
 
@@ -149,6 +173,83 @@ int Users::uage(QString a)
 
 
 
+const QList<QString> &Users::getVideo_text() const
+{
+    return video_text;
+}
+
+void Users::setVideo_text(const QList<QString> &newVideo_text)
+{
+    if (video_text == newVideo_text)
+        return;
+    video_text = newVideo_text;
+    emit video_textChanged();
+}
+
+const QList<QString> &Users::getVideoDur() const
+{
+    return videoDur;
+}
+
+void Users::setVideoDur(const QList<QString> &newVideoDur)
+{
+    if (videoDur == newVideoDur)
+        return;
+    videoDur = newVideoDur;
+    emit videoDurChanged();
+}
+
+const QList<QString> &Users::getVideoSrc() const
+{
+    return videoSrc;
+}
+
+void Users::setVideoSrc(const QList<QString> &newVideoSrc)
+{
+    if (videoSrc == newVideoSrc)
+        return;
+    videoSrc = newVideoSrc;
+    emit videoSrcChanged();
+}
+
+const QList<QString> &Users::getImgSrc() const
+{
+    return imgSrc;
+}
+
+void Users::setImgSrc(const QList<QString> &newImgSrc)
+{
+    if (imgSrc == newImgSrc)
+        return;
+    imgSrc = newImgSrc;
+    emit imgSrcChanged();
+}
+
+const QList<int> &Users::getCommentCount() const
+{
+    return CommentCount;
+}
+
+void Users::setCommentCount(const QList<int> &newCommentCount)
+{
+    if (CommentCount == newCommentCount)
+        return;
+    CommentCount = newCommentCount;
+    emit CommentCountChanged();
+}
+
+const QList<int> &Users::getViewCount() const
+{
+    return viewCount;
+}
+
+void Users::setViewCount(const QList<int> &newViewCount)
+{
+    if (viewCount == newViewCount)
+        return;
+    viewCount = newViewCount;
+    emit viewCountChanged();
+}
 
 
 

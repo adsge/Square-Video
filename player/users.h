@@ -27,6 +27,14 @@ class Users : public QObject
     Q_PROPERTY(QList<QString> url READ getUrl WRITE setUrl NOTIFY urlChanged)
     Q_PROPERTY(QList<QString> myurl READ getMyurl WRITE setMyurl NOTIFY myurlChanged)
 
+//video的数据
+    Q_PROPERTY(QList<int> viewCount READ getViewCount WRITE setViewCount NOTIFY viewCountChanged)
+    Q_PROPERTY(QList<int> CommentCount READ getCommentCount WRITE setCommentCount NOTIFY CommentCountChanged)
+    Q_PROPERTY(QList<QString> imgSrc READ getImgSrc WRITE setImgSrc NOTIFY imgSrcChanged)
+    Q_PROPERTY(QList<QString> videoSrc READ getVideoSrc WRITE setVideoSrc NOTIFY videoSrcChanged)
+    Q_PROPERTY(QList<QString> videoDur READ getVideoDur WRITE setVideoDur NOTIFY videoDurChanged)
+    Q_PROPERTY(QList<QString> video_text READ getVideo_text WRITE setVideo_text NOTIFY video_textChanged)
+
 public:
     explicit Users(QObject *parent = nullptr);
 
@@ -34,16 +42,18 @@ public:
 
 
     //用户表的 id  姓名  头像  年龄
-    void loaduinfo();
+    Q_INVOKABLE void loaduinfo();
     Q_INVOKABLE int uid(QString a);
 //    Q_INVOKABLE QString uname(QString a);
     Q_INVOKABLE QString utouxiang(QString a);
     Q_INVOKABLE int uage(QString a);
 
 //收藏夹的 用户名 url
-    void loadushoucangjia();
+    Q_INVOKABLE void loadushoucangjia();
     Q_INVOKABLE void showMyurl(QString name);
 
+//video的数据
+   Q_INVOKABLE void loadvideo();
 
 
 
@@ -73,6 +83,28 @@ public:
         const QList<QString> &getMyurl() const;
         void setMyurl(const QList<QString> &newMyurl);
 
+
+
+
+//video的数据
+        const QList<int> &getViewCount() const;
+        void setViewCount(const QList<int> &newViewCount);
+
+        const QList<int> &getCommentCount() const;
+        void setCommentCount(const QList<int> &newCommentCount);
+
+        const QList<QString> &getImgSrc() const;
+        void setImgSrc(const QList<QString> &newImgSrc);
+
+        const QList<QString> &getVideoSrc() const;
+        void setVideoSrc(const QList<QString> &newVideoSrc);
+
+        const QList<QString> &getVideoDur() const;
+        void setVideoDur(const QList<QString> &newVideoDur);
+
+        const QList<QString> &getVideo_text() const;
+        void setVideo_text(const QList<QString> &newVideo_text);
+
 signals:
     void aChanged();
 //用户表的 id  姓名  头像  年龄
@@ -86,6 +118,14 @@ signals:
     void usnameChanged();
     void urlChanged();
     void myurlChanged();
+
+//video的数据
+    void viewCountChanged();
+    void CommentCountChanged();
+    void imgSrcChanged();
+    void videoSrcChanged();
+    void videoDurChanged();
+    void video_textChanged();
 
 public:
 
@@ -105,6 +145,13 @@ public:
     std::vector<QString>shoucangjia;
     QSqlDatabase db;
 
+//video的数据
+    QList<int>viewCount;
+    QList<int>CommentCount;
+    QList<QString>imgSrc;
+    QList<QString>videoSrc;
+    QList<QString>videoDur;
+    QList<QString>video_text;
 
 
 };

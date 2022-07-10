@@ -1,4 +1,4 @@
-import QtQuick 2.10
+import QtQuick 2.15
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.3
 import QtGraphicalEffects 1.15
@@ -54,7 +54,7 @@ Page{
             y: parent.height * 0.15
             anchors.leftMargin: 20
             font.pixelSize: parent.height * 0.2
-            text: qsTr("Voooooli")
+            text: qsTr("羽博舟展")
         }
 
         Text {
@@ -110,18 +110,23 @@ Page{
                 ListElement {
                     img: "../image/缓存.png"
                     img_text: "离线缓存"
+                    source:""
+
                 }
                 ListElement {
                     img: "../image/历史记录.png"
                     img_text: "历史记录"
+                    soure:" "
                 }
                 ListElement {
                     img: "../image/我的收藏.png"
                     img_text: "我的收藏"
+                    source:"Favorite.qml"
                 }
                 ListElement {
                     img: "../image/稍后观看.png"
                     img_text: "稍后再看"
+                    source:" "
                 }
             }
 
@@ -160,6 +165,16 @@ Page{
                         font.pixelSize: 16
                         text: img_text
                     }
+
+
+                                TapHandler{
+                                    onTapped:{
+                                       var component = Qt.createComponent(source)
+                                       var next_page = component.createObject(parent)
+                                        user_stack.push(next_page)
+                                    }
+                                }
+
                 }
             }
         }
@@ -205,6 +220,7 @@ Page{
                 delegate: column_delegate
             }
         }
+
 
         Component {
             id: column_delegate

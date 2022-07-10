@@ -26,15 +26,12 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
     felgo.initialize(&engine);
     QQmlContext *context=engine.rootContext();
-    qmlRegisterType<MyObject>("My",1,0,"MyObject");
-    qmlRegisterType<Users>("Users",1,0,"Users");
+
+    qmlRegisterType<Users>("U",1,0,"Users");
     //context->setContextProperty("Text1","wwwww");
     const QUrl url(QStringLiteral("qml/Main.qml"));
 
 
-    MyObject kkk;
-
-    kkk.saveFile("/root/cc/save.txt");
 
     // Set an optional license key from project file
     // This does not work if using Felgo Live, only for Felgo Cloud Builds and local builds
@@ -88,6 +85,7 @@ int main(int argc, char *argv[])
     a.uid("tanzhaolin");
     a.loadushoucangjia();
     a.showMyurl("tanzhaolin");
+
 
     return app.exec();
 }

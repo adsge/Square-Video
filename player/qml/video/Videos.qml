@@ -1,103 +1,144 @@
 import QtQuick 2.13
-import Felgo 3.0
 import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.15
+import QtQuick.Controls.Styles 1.4
 import QtMultimedia 5.9
-Item {
-    id: name
+import Felgo 3.0
 
-    property int durat: 0
-    property int  viewConut: 0
-    property  alias videoCover:videoCover
-    property alias mediaPlayer: mediaPlayer
+Rectangle {
+    id: video_rect
+    width: parent.width
+    height: width*9/16
+    anchors.top: parent.top
+    anchors.left: parent.left
+    anchors.right: parent.right
+    color: "black"
 
+    property var video_url: ""
+    property bool play: true
+    property bool show_btn: false
 
-    function setDuration(){
-        durat=arguments[0]
-    }
-    function videoPlay(){
-        mediaPlayer.play();
-        viewConut++;
-        videoCover.viewCount=viewConut
-
-    }
-    function videoPause(){
-        mediaPlayer.pause();
-    }
-    function videoStop(){
-        mediaPlayer.stop();
-    }
-    function setTitle(){
-        title.text=arguments[0];
-    }
-    function setDetail(){
-        detail.text=arguments[0]
+    Image {
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.horizontalCenter: parent.horizontalCenter
+        source: "../image/视频.png"
     }
 
-
-    Comments{
-        id:comment
-    }
-    //封面
-
-    VideoCover{
-        id:videoCover
-        visible: true              //
-        duration: durat
-        viewCount: viewConut
-        commentCount: comment.commentCount
-        TapHandler{
-            onTapped: {
-                videoCover.visible=false
-                name.videoPlay();//
+    MediaPlayer{
+        id:player
+        source: video_url
+        autoPlay: play
+        onStatusChanged: {
+            console.log("hello")
+            if(status === MediaPlayer.EndOfMedia) {
+                video_rect.play = false
             }
         }
     }
-   // 标题
-    Text {
-        id: title
-        visible: false
-        anchors.bottom: parent.bottom
-        text: qsTr("text")
-    }
-    //简介
-    Text {
-        id: detail
-        visible: false
-        text: qsTr("Detail")
-    }
-    MediaPlayer{
-        id:mediaPlayer
-        source: "../Video/1.mkv"
-        muted: control.muted
-        volume: control.volume
-    }
-    VideoOutput{
+    VideoOutput {
         anchors.fill: parent
-        source: mediaPlayer
+        source: player
     }
 
-    //音量控制
-    AudioControl{
-        id:control
-        anchors.right: parent.right
-        mediaPlayer: mediaPlayer
-    }
-
-
-    //进度条拖动
-    PlaybackSeekControl{
-        mediaPlayer: mediaPlayer
+    AppButton {
+        id: play_btn
+        width: 30
+        height: width
+        anchors.left: parent.left
+        anchors.leftMargin: 20
         anchors.bottom: parent.bottom
-        width: parent.width*0.8
+        anchors.bottomMargin: 10
+        backgroundColor: "transparent" // 解决播放器出现Rectangle的问题
+        AppImage {
+            anchors.fill: parent
+            visible: show_btn
+            source: play ? "../image/暂停.png" : "../image/开始.png"
+        }
+        onClicked:{
+            if(show_btn) {
+                play = !play
+                if(play)
+                    player.play()
+                else
+                    player.pause()
+            }
+        }
     }
-    //速率控制
-    PlaybackRateControl{
-        mediaPlayer: mediaPlayer
-        width: parent.width*0.8
+
+    AppSlider {
+        id: slider
+        anchors.left: play_btn.right
+        anchors.verticalCenter: play_btn.verticalCenter
+        anchors.leftMargin: 15
+        visible: show_btn
+        value: player.position / player.duration // for slider to move along with movie
+
+        handle: Rectangle {
+            width: 20
+            height: 20
+            border.color: "gray"
+            border.width: 2
+            radius: 10
+            color: slider.pressed ? "white" : "lightgray"
+            x: slider.visualPosition * (slider.availableWidth)// - width / 2
+            anchors.verticalCenter: slider.verticalCenter
+        }
+
+        property real index: 0
+        property bool changed: false
+        onMoved: {
+            if (pressed) {
+                index = position
+            }
+        }
+        onPressedChanged: {
+            if (pressed === true) {
+                changed = true
+            } else if (changed === true) {
+                player.seek(index * player.duration)
+                changed = false
+            }
+        }
     }
 
+    Text {
+        id: durationTime
+        anchors.left: slider.right
+        anchors.verticalCenter: slider.verticalCenter
+        anchors.leftMargin: 15
+        color: "#ffffff";
+        visible: show_btn
+        font{pointSize: 12; family: "PingFang SC";weight: Font.Medium;}
+        text: {
+            var milliseconds = player.position
+            var minutes = Math.floor(milliseconds / 60000)
+            milliseconds -= minutes * 60000
+            var seconds = milliseconds / 1000
+            seconds = Math.round(seconds)
+            if (seconds < 10)
+                return minutes + ":0" + seconds + "/"
+            else
+                return minutes + ":" + seconds + "/"
+        }
+    }
 
-
-
+    Text {
+        id: endTime;
+        anchors.left: durationTime.right
+        anchors.verticalCenter: slider.verticalCenter
+        color: "#ffffff";
+        visible: show_btn
+        font{pointSize: 12; family: "PingFang SC"; weight: Font.Medium;}
+        text: {
+            var milliseconds = player.duration.valueOf()
+            var minutes = Math.floor(milliseconds / 60000)
+            milliseconds -= minutes * 60000
+            var seconds = milliseconds / 1000
+            seconds = Math.round(seconds)
+            if (seconds < 10)
+                return minutes + ":0" + seconds
+            else
+                return minutes + ":" + seconds /*                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               return m + ":" + s*/
+        }
+    }
 }
